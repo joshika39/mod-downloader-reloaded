@@ -3,45 +3,28 @@ using System.Diagnostics;
 using System.Reactive;
 using Lamar;
 using ModDownloader.Core;
+using ModDownloader.Views.Main.Ribbon;
+using ModDownloader.Views.MainContent;
 using ReactiveUI;
 
 namespace ModDownloader.Views.Main
 {
-    public class MainWindowViewModel : ABaseViewModel, IMainWindowViewModel
+    public class MainWindowViewModel : AWindowViewModel, IMainWindowViewModel
     {
-        private string _description = string.Empty;
-
-        public string Greeting => "Welcome to Avalonia!";
-        public string Description
-        {
-            get => _description;
-            set => this.RaiseAndSetIfChanged(ref _description, value);
-        }
-
-        private string _userName = string.Empty;
-
-        public string UserName
-        {
-            get => _userName;
-            set => this.RaiseAndSetIfChanged(ref _userName, value);
-        }
-
-        public ReactiveCommand<Unit, Unit> SubmitCommand { get; }
-
-        public MainWindowViewModel(IContainer container)
-        {
-            IObservable<bool> isInputValid = this.WhenAnyValue(
-                x => x.UserName,
-                x => !string.IsNullOrWhiteSpace(x) && x.Length > 7
-                );
+        public IRibbonViewModel RibbonViewModel { get; }
+        public IMainViewModel MainViewModel { get; }
         
-            SubmitCommand = ReactiveCommand.Create(OnSubmitCommand, isInputValid);
-        }
-        private void OnSubmitCommand()
-        {
-            Debug.WriteLine("The submit command was run.");
-        }
+        public string Greeting => "Welcome to Avalonia!";
 
-    
+        public MainWindowViewModel(
+            IContainer container, 
+            IMainWindow window,
+            IRibbonViewModel ribbonViewModel,
+            IMainViewModel mainViewModel) : base(container, window)
+        {
+            RibbonViewModel = ribbonViewModel ?? throw new ArgumentNullException(nameof(ribbonViewModel));
+            MainViewModel = mainViewModel ?? throw new ArgumentNullException(nameof(mainViewModel));
+            
+        }
     }
 }

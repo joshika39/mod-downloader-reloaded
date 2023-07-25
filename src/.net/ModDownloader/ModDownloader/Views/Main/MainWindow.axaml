@@ -13,13 +13,8 @@
     </Design.DataContext>
     
     <StackPanel>
+        <UserControl Content="{Binding RibbonViewModel.View}" />
         <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-        <TextBox AcceptsReturn="True"
-                 Text="{Binding Description}"
-                 Watermark="Enter a description"/>
-        <TextBlock Margin="0 5" >User Name</TextBlock>
-        <TextBox Text="{Binding UserName}"/>
-        <Button Margin="0 20" Command="{Binding SubmitCommand}">Submit</Button>
+        <UserControl Content="{Binding MainViewModel.View}"/>
     </StackPanel>
 </Window>

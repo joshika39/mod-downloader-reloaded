@@ -5,7 +5,7 @@ using ReactiveUI;
 
 namespace ModDownloader.Views.Main
 {
-    public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
+    public partial class MainWindow : ReactiveWindow<MainWindowViewModel>, IMainWindow
     {
         public MainWindow()
         {

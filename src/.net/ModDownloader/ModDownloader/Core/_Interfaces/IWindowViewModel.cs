@@ -2,5 +2,5 @@
 
 public interface IWindowViewModel
 {
-    
+    IWindow Window { get; }
 }

@@ -1,0 +1,20 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mainContent="clr-namespace:ModDownloader.Views.MainContent"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="mainContent:MainViewModel"
+             x:Class="ModDownloader.Views.MainContent.Main">
+    <Design.DataContext>
+        <mainContent:MainViewModel />
+    </Design.DataContext>
+    <StackPanel>
+        <TextBox AcceptsReturn="True"
+                 Text="{Binding Description}"
+                 Watermark="Enter a description"/>
+        <TextBlock Margin="0 5" >User Name</TextBlock>
+        <TextBox Text="{Binding UserName}"/>
+        <Button Margin="0 20" Command="{Binding SubmitCommand}">Submit</Button>
+    </StackPanel>
+</UserControl>
