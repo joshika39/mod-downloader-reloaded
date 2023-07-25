@@ -1,7 +1,7 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using ModDownloader.ViewModels;
+using ModDownloader.Core;
 
 namespace ModDownloader;
 

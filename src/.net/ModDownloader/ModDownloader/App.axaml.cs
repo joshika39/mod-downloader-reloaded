@@ -4,14 +4,18 @@ using System.Reflection;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Lamar;
 using Microsoft.Extensions.DependencyInjection;
-using ModDownloader.ViewModels;
+using ModDownloader.Core;
 using ModDownloader.Views;
+using ModDownloader.Views.Main;
 
 namespace ModDownloader;
 
 public partial class App : Application
 {
+    public static IContainer Container { get; set; }
+
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -21,33 +25,19 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            ConfigureServices();
+            Container = new Container(cfg =>
+            {
+                cfg.Scan(scan =>
+                {
+                    scan.AssemblyContainingType<Program>();
+                    scan.AddAllTypesOf<IWindowViewModel>();
+                    scan.WithDefaultConventions();
+                });
+            });
+            
+            var test = Container.GetService<IMainWindowViewModel>();
         }
 
         base.OnFrameworkInitializationCompleted();
-    }
-    
-    private void ConfigureServices()
-    {
-        // Create a new service collection
-        var services = new ServiceCollection();
-
-        // Get all the types from the executing assembly that implement IMyViewModel
-        var viewModelTypes = Assembly.GetExecutingAssembly().GetTypes()
-            .Where(t => t is { IsAbstract: false, IsInterface: false } && t.GetInterfaces().Any(i => i.Name.StartsWith("I") && i.Name[1..] == t.Name));
-
-        // Loop through the types and register them with their interfaces
-        foreach (var viewModelType in viewModelTypes)
-        {
-            var interfaceType = viewModelType.GetInterfaces().FirstOrDefault(i => i.Name.StartsWith("I") && i.Name.Substring(1) == viewModelType.Name);
-            if (interfaceType != null)
-            {
-                services.AddSingleton(interfaceType, viewModelType);
-            }
-        }
-
-        // Build the service provider
-        var serviceProvider = services.BuildServiceProvider();
-        Resources[typeof(IServiceProvider)] = services;
     }
 }

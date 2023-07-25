@@ -1,9 +1,9 @@
 ﻿using System.Reactive.Disposables;
 using ReactiveUI;
 
-namespace ModDownloader.ViewModels;
+namespace ModDownloader.Core;
 
-public abstract class ABaseViewModel : ReactiveObject, IActivatableViewModel
+public abstract class ABaseViewModel : ReactiveObject, IActivatableViewModel, IWindowViewModel
 {
     public ViewModelActivator Activator { get; }
     

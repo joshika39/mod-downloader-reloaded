@@ -6,7 +6,7 @@ namespace ModDownloader.Core
     {  
         public AppBootstrapper() 
         { 
-            Locator.CurrentMutable.RegisterConstant(new FeedService(), typeof(IFeedService));
+            
         }  
     } 
 }

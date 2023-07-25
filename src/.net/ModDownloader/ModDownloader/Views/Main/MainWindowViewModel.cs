@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Reactive;
-using ModDownloader.ViewModels;
+using Lamar;
+using ModDownloader.Core;
 using ReactiveUI;
 
 namespace ModDownloader.Views.Main
 {
-    public class MainWindowViewModel : ABaseViewModel
+    public class MainWindowViewModel : ABaseViewModel, IMainWindowViewModel
     {
         private string _description = string.Empty;
 
@@ -27,7 +28,7 @@ namespace ModDownloader.Views.Main
 
         public ReactiveCommand<Unit, Unit> SubmitCommand { get; }
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(IContainer container)
         {
             IObservable<bool> isInputValid = this.WhenAnyValue(
                 x => x.UserName,

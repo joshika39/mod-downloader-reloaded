@@ -1,6 +1,8 @@
-﻿namespace ModDownloader.Views.Main
+﻿using ModDownloader.Core;
+
+namespace ModDownloader.Views.Main
 {
-    public class IMainWindowViewModel
+    public interface IMainWindowViewModel : IWindowViewModel
     {
         
     }
